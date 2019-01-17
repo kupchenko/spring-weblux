@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>reactive th</title>
+</head>
+<body>
+<form>
+    <input type="text" id="firstName" placeholder="First name"><br/>
+    <input type="text" id="lastName" placeholder="Last name"><br/>
+    <input type="text" id="age" placeholder="Age"><br/>
+    <input id="submitBtn" type="submit" name="Submit"><br/>
+    <div id="result"></div>
+</form>
+</body>
+
+<script>
+    $(document).ready(function () {
+        var submitBtn = $("#submitBtn");
+        var result = $("#result");
+        var firstNameSelector = $('#firstName'),
+            lastNameSelector = $('#lastName'),
+            ageSelector = $('#age');
+        function getRequestData() {
+            return {
+                firstName: firstNameSelector.val(),
+                lastName: lastNameSelector.val(),
+                age: ageSelector.val()
+            };
+        }
+
+        submitBtn.click(function (e) {
+            e.preventDefault();
+            result.html("Waiting...");
+            var requestData = getRequestData();
+            $.ajax({
+                type: 'POST',
+                url: '/form',
+                dataType : "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(requestData),
+                success: function (response) {
+                    result.html("Successful!!!");
+                },
+                error: function (response) {
+                    result.html("Failure!!!");
+                }
+            });
+        });
+    });
+
+</script>
+</html>
