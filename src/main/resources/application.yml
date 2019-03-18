@@ -1,0 +1,27 @@
+spring.output.ansi.enabled: always
+spring.mvc.favicon.enabled: false
+
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include:
+          - hystrix.stream
+
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+    ExternalServiceCall:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2000
