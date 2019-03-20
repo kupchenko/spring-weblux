@@ -8,9 +8,9 @@ import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 @SpringBootApplication
 public class WebfluxExampleApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(WebfluxExampleApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(WebfluxExampleApplication.class, args);
+    }
 
 }
 

@@ -1,10 +1,8 @@
 package me.kupchenko.webfluxexample.service;
 
-import com.netflix.hystrix.HystrixCommandProperties;
 import org.reactivestreams.Publisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.hystrix.HystrixCommands;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
