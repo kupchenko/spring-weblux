@@ -20,12 +20,9 @@ public class ExternalService {
     private AtomicInteger requests = new AtomicInteger();
     private AtomicInteger fallback = new AtomicInteger();
 
-    @Autowired
-    private HystrixCommandProperties.Setter setter;
-
     @PostConstruct
     public void PostConstruct() {
-        new Thread(() -> {
+        Thread thread = new Thread(() -> {
             while (true) {
                 try {
                     Thread.sleep(5_000);
@@ -35,15 +32,18 @@ public class ExternalService {
                 System.out.println("Requests: " + requests.get());
                 System.out.println("Fallback: " + fallback.get());
             }
-        }).start();
+        });
+        thread.setName("[Test] Info Thread");
+        thread.start();
     }
 
     public Mono<String> call(String errorRate) {
         return HystrixCommands
                 .from(businessLogic(Double.valueOf(errorRate)))
                 .fallback(this::fallback)
+                .groupName("apicalls")
                 .commandName("ExternalServiceCall")
-                .commandProperties(setter)
+                .eager()
                 .toMono();
     }
 

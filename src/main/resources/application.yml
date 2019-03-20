@@ -12,16 +12,12 @@ management:
         include:
           - hystrix.stream
 
-
 hystrix:
+  timer.threadpool.default.coreSize: 1 #  //if 0 it creates threads anyway and increments them by 1
   command:
     default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 10000
+      circuitBreaker:
+        sleepWindowInMilliseconds: 5000
     ExternalServiceCall:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 2000
+      circuitBreaker:
+        sleepWindowInMilliseconds: 5000
